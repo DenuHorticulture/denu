@@ -745,9 +745,11 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
+db.ref('.info/connected').on('value', s => console.log('Firebase connecté :', s.val()));
 
 // Connexion anonyme : nécessaire pour respecter les règles « auth != null »
 const authReady = firebase.auth().signInAnonymously();
+authReady.catch(e => console.error('Auth Firebase échouée :', e.code, e.message));
 
 function toArray(val){
   if(!val) return [];
